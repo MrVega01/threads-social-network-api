@@ -1,14 +1,20 @@
-const express = require('express')
-const cors = require('cors')
+import 'dotenv/config'
+import cors from 'cors'
+import express from 'express'
+import usersRoute from './src/routes/users.js'
+import threadsRoute from './src/routes/threads.js'
+import postsRoute from './src/routes/posts.js'
+
 const PORT = process.env.PORT || 3000
 
 const app = express()
 
 app.use(cors())
+app.use(express.json())
 
-app.use('/users', require('./src/routes/users.js'))
-app.use('/threads', require('./src/routes/threads.js'))
-app.use('/posts', require('./src/routes/posts.js'))
+app.use('/users', usersRoute)
+app.use('/threads', threadsRoute)
+app.use('/posts', postsRoute)
 
 app.listen(PORT, () => {
   console.log(`API initialized on PORT ${PORT}`)
