@@ -12,6 +12,18 @@ export async function getAllThreadsService () {
   return response
 }
 
+export async function getThreadByIdService ({ id }) {
+  const response = await turso.execute({
+    sql: `
+      SELECT * FROM threads WHERE id = ?;
+    `,
+    args: [id]
+  }).catch((e) => {
+    console.error('ERROR ON GET THREAD BY ID SQL', e)
+  })
+  return response
+}
+
 export async function createThreadService ({ name }) {
   const response = await turso.execute({
     sql: `

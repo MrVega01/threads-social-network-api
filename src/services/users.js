@@ -12,6 +12,18 @@ export async function getAllUsersService () {
   return response
 }
 
+export async function getUserByIdService ({ id }) {
+  const response = await turso.execute({
+    sql: `
+      SELECT * FROM users WHERE id = ?;
+    `,
+    args: [id]
+  }).catch((e) => {
+    console.error('ERROR ON GET USERS BY ID SQL', e)
+  })
+  return response
+}
+
 export async function createUserService ({
   createTime,
   email,
